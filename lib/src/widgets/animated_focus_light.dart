@@ -9,6 +9,7 @@ import 'package:tutorial_coach_mark/src/paint/light_paint_rect.dart';
 import 'package:tutorial_coach_mark/src/target/target_focus.dart';
 import 'package:tutorial_coach_mark/src/target/target_position.dart';
 import 'package:tutorial_coach_mark/src/util.dart';
+import 'package:tutorial_coach_mark/src/widgets/tap_blockers.dart';
 
 class AnimatedFocusLight extends StatefulWidget {
   const AnimatedFocusLight({
@@ -309,45 +310,64 @@ class AnimatedStaticFocusLightState extends AnimatedFocusLightState {
 
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      label: widget.backgroundSemanticLabel,
-      button: true,
-      child: GestureDetector(
-        behavior: HitTestBehavior.deferToChild,
-        excludeFromSemantics: true,
-        onTap: _targetFocus.enableOverlayTab
-            ? () => _tapHandler(overlayTap: true)
-            : null,
-        child: AnimatedBuilder(
-          animation: _controller,
-          builder: (_, child) {
-            _progressAnimated = _curvedAnimation.value;
-            return Stack(
-              children: <Widget>[
-                _getLightPaint(_targetFocus),
-                Positioned(
-                  left: left,
-                  top: top,
-                  child: GestureDetector(
-                    behavior: _targetFocus.allowTapTarget
-                        ? HitTestBehavior.translucent
-                        : HitTestBehavior.opaque,
-                    onTapDown: _tapHandlerForPosition,
-                    onTap: _onTargetTap,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: _betBorderRadiusTarget(),
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (_, child) {
+        _progressAnimated = _curvedAnimation.value;
+        return Stack(
+          children: <Widget>[
+            IgnorePointer(
+              ignoring: true,
+              child: _getLightPaint(_targetFocus),
+            ),
+            Positioned(
+              left: left,
+              top: top,
+              child: _targetFocus.allowTapTarget
+                  ? TapRegion(
+                      onTapInside: (details) => _tapHandlerForPosition(
+                          TapDownDetails(
+                              globalPosition: details.position,
+                              localPosition: details.localPosition,
+                              kind: details.kind)),
+                      behavior: HitTestBehavior.translucent,
+                      child: IgnorePointer(
+                        ignoring: true,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: _betBorderRadiusTarget(),
+                          ),
+                          width: width,
+                          height: height,
+                        ),
                       ),
-                      width: width,
-                      height: height,
+                    )
+                  : GestureDetector(
+                      onTapDown: _tapHandlerForPosition,
+                      onTap: _onTargetTap,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: _betBorderRadiusTarget(),
+                        ),
+                        width: width,
+                        height: height,
+                      ),
                     ),
-                  ),
-                )
-              ],
-            );
-          },
-        ),
-      ),
+            ),
+            TapBlockers(
+              holeRect: Rect.fromLTWH(
+                left,
+                top,
+                width,
+                height,
+              ),
+              onTap: _targetFocus.enableOverlayTab
+                  ? () => _tapHandler(overlayTap: true)
+                  : null,
+            ),
+          ],
+        );
+      },
     );
   }
 
