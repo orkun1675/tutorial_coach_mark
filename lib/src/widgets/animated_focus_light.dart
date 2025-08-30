@@ -312,7 +312,8 @@ class AnimatedStaticFocusLightState extends AnimatedFocusLightState {
     return Semantics(
       label: widget.backgroundSemanticLabel,
       button: true,
-      child: InkWell(
+      child: GestureDetector(
+        behavior: HitTestBehavior.deferToChild,
         excludeFromSemantics: true,
         onTap: _targetFocus.enableOverlayTab
             ? () => _tapHandler(overlayTap: true)
@@ -412,7 +413,8 @@ class AnimatedPulseFocusLightState extends AnimatedFocusLightState {
     return Semantics(
       label: widget.backgroundSemanticLabel,
       button: true,
-      child: InkWell(
+      child: GestureDetector(
+        behavior: HitTestBehavior.deferToChild,
         excludeFromSemantics: true,
         onTap: _targetFocus.enableOverlayTab
             ? () => _tapHandler(overlayTap: true)

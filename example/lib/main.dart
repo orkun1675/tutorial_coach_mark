@@ -110,8 +110,16 @@ class MyHomePageState extends State<MyHomePage> {
                 height: 50,
                 child: ElevatedButton(
                   key: keyButton2,
-                  onPressed: () {},
-                  child: Container(),
+                  onPressed: () {
+                    print("🎯 Center button pressed!");
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Center button pressed!'),
+                        duration: Duration(seconds: 1),
+                      ),
+                    );
+                  },
+                  child: const Icon(Icons.touch_app),
                 ),
               ),
             ),
@@ -214,7 +222,15 @@ class MyHomePageState extends State<MyHomePage> {
             ],
             // currentIndex: _selectedIndex,
             selectedItemColor: Colors.amber[800],
-            onTap: (index) {},
+            onTap: (index) {
+              print("🎯 Bottom navigation tapped! Index: $index");
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Bottom nav tapped! Index: $index'),
+                  duration: const Duration(seconds: 1),
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -262,6 +278,7 @@ class MyHomePageState extends State<MyHomePage> {
         keyTarget: keyBottomNavigation1,
         alignSkip: Alignment.topRight,
         enableOverlayTab: true,
+        allowTapTarget: true, // 🎉 New feature - allow tap to pass through!
         contents: [
           TargetContent(
             align: ContentAlign.top,
@@ -271,7 +288,14 @@ class MyHomePageState extends State<MyHomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    "Titulo lorem ipsum",
+                    "Target with tap-through enabled",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    "Tap ONLY on the highlighted bottom navigation area - it will trigger both the tutorial AND the bottom nav. Tapping elsewhere will only progress the tutorial.",
                     style: TextStyle(
                       color: Colors.white,
                     ),
@@ -550,6 +574,7 @@ class MyHomePageState extends State<MyHomePage> {
         identify: "Target 5",
         keyTarget: keyButton2,
         shape: ShapeLightFocus.Circle,
+        allowTapTarget: true, // 🎉 Enable tap-through for this button too!
         contents: [
           TargetContent(
             align: ContentAlign.top,
@@ -559,7 +584,7 @@ class MyHomePageState extends State<MyHomePage> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 20.0),
                   child: Text(
-                    "Multiples contents",
+                    "Button with tap-through",
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -567,33 +592,12 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 Text(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pulvinar tortor eget maximus iaculis.",
+                  "This button can be pressed during the tutorial! Try tapping it to see both tutorial progression AND button action.",
                   style: TextStyle(color: Colors.white),
                 ),
               ],
             ),
           ),
-          TargetContent(
-              align: ContentAlign.bottom,
-              child: const Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 20.0),
-                    child: Text(
-                      "Multiples contents",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0),
-                    ),
-                  ),
-                  Text(
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pulvinar tortor eget maximus iaculis.",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ],
-              ))
         ],
       ),
     );
