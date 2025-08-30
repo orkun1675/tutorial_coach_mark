@@ -15,6 +15,7 @@ class TargetFocus {
     this.color,
     this.enableOverlayTab = false,
     this.enableTargetTab = true,
+    this.allowTapTarget = false,
     this.alignSkip,
     this.paddingFocus,
     this.focusAnimationDuration,
@@ -31,6 +32,10 @@ class TargetFocus {
   final BorderSide? borderSide;
   final bool enableOverlayTab;
   final bool enableTargetTab;
+
+  /// Allow the tap to pass through to the target, the tap even will be received
+  /// by the `keyTarget` widget.
+  final bool allowTapTarget;
   final Color? color;
   final AlignmentGeometry? alignSkip;
   final double? paddingFocus;

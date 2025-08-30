@@ -327,12 +327,16 @@ class AnimatedStaticFocusLightState extends AnimatedFocusLightState {
                 Positioned(
                   left: left,
                   top: top,
-                  child: InkWell(
-                    borderRadius: _betBorderRadiusTarget(),
+                  child: GestureDetector(
+                    behavior: _targetFocus.allowTapTarget
+                        ? HitTestBehavior.translucent
+                        : HitTestBehavior.opaque,
                     onTapDown: _tapHandlerForPosition,
                     onTap: _onTargetTap,
                     child: Container(
-                      color: Colors.transparent,
+                      decoration: BoxDecoration(
+                        borderRadius: _betBorderRadiusTarget(),
+                      ),
                       width: width,
                       height: height,
                     ),
@@ -429,12 +433,16 @@ class AnimatedPulseFocusLightState extends AnimatedFocusLightState {
                     Positioned(
                       left: left,
                       top: top,
-                      child: InkWell(
-                        borderRadius: _betBorderRadiusTarget(),
-                        onTap: _onTargetTap,
+                      child: GestureDetector(
+                        behavior: _targetFocus.allowTapTarget
+                            ? HitTestBehavior.translucent
+                            : HitTestBehavior.opaque,
                         onTapDown: _tapHandlerForPosition,
+                        onTap: _onTargetTap,
                         child: Container(
-                          color: Colors.transparent,
+                          decoration: BoxDecoration(
+                            borderRadius: _betBorderRadiusTarget(),
+                          ),
                           width: width,
                           height: height,
                         ),
