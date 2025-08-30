@@ -62,7 +62,7 @@ extension StateExt on State {
 }
 
 class NotFoundTargetException extends FormatException {
-  NotFoundTargetException(identify)
+  NotFoundTargetException(dynamic identify)
       : super('It was not possible to obtain target position ($identify).');
 }
 
