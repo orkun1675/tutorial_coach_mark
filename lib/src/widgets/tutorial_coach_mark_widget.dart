@@ -304,6 +304,14 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget>
   void skip() => widget.onClickSkip?.call();
 
   @override
+  bool get hasNext =>
+      (_focusLightKey.currentState?.nextIndex ?? widget.targets.length) <
+      widget.targets.length - 1;
+
+  @override
+  bool get hasPrevious => (_focusLightKey.currentState?.nextIndex ?? 0) > 0;
+
+  @override
   void next() => _focusLightKey.currentState?.next();
 
   @override

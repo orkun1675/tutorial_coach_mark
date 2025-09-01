@@ -47,6 +47,8 @@ TargetPosition? getTargetCurrent(
 }
 
 abstract class TutorialCoachMarkController {
+  bool get hasNext;
+  bool get hasPrevious;
   void next();
   void previous();
   void skip();
