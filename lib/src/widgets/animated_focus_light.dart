@@ -156,7 +156,8 @@ abstract class AnimatedFocusLightState extends State<AnimatedFocusLight>
 
   Future _tapHandlerForPosition(TapDownDetails tapDetails) async {
     if (_isAnimating) return;
-    await widget.clickTargetWithTapPosition?.call(_targetFocus, tapDetails);
+    final targetFocus = widget.targets[_currentFocus];
+    await widget.clickTargetWithTapPosition?.call(targetFocus, tapDetails);
   }
 
   Future<void> _runFocus() async {
