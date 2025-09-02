@@ -1,3 +1,9 @@
+# 1.4.0
+- Upgrade deps
+- Make `onSkip` async and allow rejecting skip request
+- Allow tapping the target (introduces the `allowTapTarget` param)
+- Adds `currentIndex`, `hasPrev`, and `hasNext` getters
+
 # 1.3.1
 - Adds animationBehavior: AnimationBehavior.preserve. [#224](https://github.com/RafaelBarbosatec/tutorial_coach_mark/issues/224)
 - Adds `disableBackButton` default false.
