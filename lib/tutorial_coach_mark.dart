@@ -213,6 +213,8 @@ class TutorialCoachMark {
 
   GlobalKey<TutorialCoachMarkWidgetState> get widgetKey => _widgetKey;
 
+  int get currentIndex => _widgetKey.currentState?.currentIndex ?? 0;
+
   bool get hasNext => _widgetKey.currentState?.hasNext ?? false;
 
   bool get hasPrevious => _widgetKey.currentState?.hasPrevious ?? false;
